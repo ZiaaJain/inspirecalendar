@@ -59,72 +59,69 @@ function renderCalendar() {
   // Month label
   document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-  // Day headers
-  const headerRow = document.createElement("div");
-  headerRow.className = "calendar-row";
-  dayNames.forEach(d=>{
-    const dayHeader = document.createElement("div");
-    dayHeader.className = "calendar-day-name";
-    dayHeader.textContent = d;
-    headerRow.appendChild(dayHeader);
+  // Create table
+  const table = document.createElement("table");
+  table.className = "calendar-table";
+
+  // Header row for days
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  dayNames.forEach(d => {
+    const th = document.createElement("th");
+    th.textContent = d;
+    headerRow.appendChild(th);
   });
-  calendarEl.appendChild(headerRow);
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
 
-  // Calculate first day
-  const firstDay = new Date(currentYear, currentMonth,1);
-  const startingDay = (firstDay.getDay() + 6)%7; // Mon=0
+  // Body
+  const tbody = document.createElement("tbody");
 
-  const daysInMonth = new Date(currentYear, currentMonth+1,0).getDate();
-  let row = document.createElement("div");
-  row.className="calendar-row";
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const startingDay = (firstDay.getDay() + 6) % 7; // Monday=0
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  // Empty cells before first day
-  for(let i=0;i<startingDay;i++){
-    const emptyCell = document.createElement("div");
-    emptyCell.className="calendar-day empty";
-    row.appendChild(emptyCell);
-  }
+  let dayCounter = 1;
+  for(let week=0; week<6; week++){
+    const tr = document.createElement("tr");
+    for(let d=0; d<7; d++){
+      const td = document.createElement("td");
+      td.className = "day-cell";
 
-  // Days
-  for(let day=1; day<=daysInMonth; day++){
-    if(row.childNodes.length === 7){
-      calendarEl.appendChild(row);
-      row = document.createElement("div");
-      row.className="calendar-row";
+      if(week === 0 && d < startingDay){
+        td.classList.add("empty");
+      } else if(dayCounter > daysInMonth){
+        td.classList.add("empty");
+      } else {
+        td.innerHTML = `<div class="date-number">${dayCounter}</div>`;
+
+        const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(dayCounter).padStart(2,"0")}`;
+        const todaysEvents = events.filter(e => e.date === dateStr && e.user === user.name);
+
+        todaysEvents.forEach(ev => {
+          const evDiv = document.createElement("div");
+          evDiv.textContent = ev.title;
+          evDiv.className = "event";
+
+          // Event colors
+          if(ev.type==="school") evDiv.style.background="#FADDE1";
+          else if(ev.type==="personal") evDiv.style.background="#EADBDD";
+          else if(ev.type==="exam") evDiv.style.background="#D0D5EA";
+          else evDiv.style.background="#F0D2DA";
+
+          td.appendChild(evDiv);
+        });
+
+        dayCounter++;
+      }
+      tr.appendChild(td);
     }
-
-    const dayCell = document.createElement("div");
-    dayCell.className="calendar-day";
-    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-    dayCell.innerHTML = `<strong>${day}</strong>`;
-
-    const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
-    todaysEvents.forEach(ev=>{
-      const evDiv = document.createElement("div");
-      evDiv.textContent = ev.title;
-      evDiv.style.fontSize="0.7rem";
-      evDiv.style.marginTop="3px";
-      // Set color by type
-      if(ev.type==="school") evDiv.style.background="#ffd6d6";
-      else if(ev.type==="personal") evDiv.style.background="#d6ffd6";
-      else if(ev.type==="exam") evDiv.style.background="#d6d6ff";
-      else evDiv.style.background="#fff0b3";
-      evDiv.style.borderRadius="4px";
-      evDiv.style.padding="2px 4px";
-      dayCell.appendChild(evDiv);
-      dayCell.classList.add("highlight");
-    });
-
-    row.appendChild(dayCell);
+    tbody.appendChild(tr);
+    if(dayCounter > daysInMonth) break;
   }
 
-  // Fill remaining empty cells
-  while(row.childNodes.length<7){
-    const emptyCell = document.createElement("div");
-    emptyCell.className="calendar-day empty";
-    row.appendChild(emptyCell);
-  }
-  calendarEl.appendChild(row);
+  table.appendChild(tbody);
+  calendarEl.appendChild(table);
 }
 
 renderCalendar();
