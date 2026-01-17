@@ -8,13 +8,15 @@ const eventTitle = document.getElementById("eventTitle");
 const eventDate = document.getElementById("eventDate");
 const eventCategory = document.getElementById("eventCategory");
 
+// Get current user
 let user = JSON.parse(localStorage.getItem("user"));
 if(!user) window.location.href = "index.html";
 username.textContent = user.name;
 
+// Get events from localStorage (filter by user name)
 let events = JSON.parse(localStorage.getItem("events")) || [];
 
-// Motivation Quotes
+// Motivation quotes
 const quotes = [
   "Small steps still move you forward 🌷",
   "You’re doing better than you think 🤍",
@@ -24,6 +26,7 @@ const quotes = [
   "Believe in yourself today 💫",
   "You’ve got this 🌼"
 ];
+
 function showQuote() {
   quoteText.textContent = quotes[Math.floor(Math.random() * quotes.length)];
   quotePopup.style.display = "block";
@@ -31,7 +34,7 @@ function showQuote() {
 showQuote();
 closeQuote.onclick = () => quotePopup.style.display = "none";
 
-// Calendar Variables
+// Calendar variables
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -46,7 +49,7 @@ function addEvent() {
   const category = eventCategory.value;
   if(!title || !date) return alert("Fill all fields");
 
-  events.push({title, date, category, email:user.email});
+  events.push({title, date, category, user:user.name});
   localStorage.setItem("events", JSON.stringify(events));
   renderCalendar();
   eventTitle.value = "";
@@ -61,7 +64,7 @@ function changeMonth(delta){
   renderCalendar();
 }
 
-// Render Calendar Grid
+// Render Calendar in grid
 function renderCalendar(){
   calendar.innerHTML="";
   document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
@@ -104,15 +107,15 @@ function renderCalendar(){
     dayCell.innerHTML = `<strong>${day}</strong>`;
 
     const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-    const todaysEvents = events.filter(e=>e.date===dateStr && e.email===user.email);
+    const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
 
     if(todaysEvents.length>0){
       dayCell.classList.add("highlight");
       todaysEvents.forEach(ev=>{
         const evDiv = document.createElement("div");
         evDiv.style.fontSize="0.7rem";
-        evDiv.style.marginTop="5px";
-        evDiv.textContent=ev.title;
+        evDiv.style.marginTop="3px";
+        evDiv.textContent = `${ev.title} (${ev.category})`; // Show type
         dayCell.appendChild(evDiv);
       });
     }
@@ -130,4 +133,5 @@ function renderCalendar(){
   calendar.appendChild(row);
 }
 
+// Initial render
 renderCalendar();
