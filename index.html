@@ -1,56 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>Inspire Calendar</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>📅 Inspire Calendar</h1>
-    <p class="tagline">Plan your days. Inspire your goals.</p>
-    <nav>
-      <a href="index.html">Calendar</a>
-      <a href="ai.html">Inspire AI 🤖</a>
-    </nav>
-  </header>
+<header>
+  <h1>Inspire Calendar ✨</h1>
+  <nav>
+    <a href="index.html">Calendar</a>
+    <a href="ai.html">Inspire AI</a>
+  </nav>
+</header>
 
-  <main>
-    <section>
-      <h2>Add Event</h2>
-      <input type="text" id="eventTitle" placeholder="Event title" />
-      <input type="date" id="eventDate" />
-      <select id="eventType">
-        <option value="school">School</option>
-        <option value="exam">Exam</option>
-        <option value="personal">Personal</option>
-      </select>
-      <button onclick="addEvent()">Add Event</button>
-    </section>
+<main>
+  <div class="card">
+    <h2>Hello, <span id="username"></span> 🌱</h2>
+  </div>
 
-    <div class="card">
-  <h2>Hello, <span id="username"></span> 🌱</h2>
-</div>
+  <div class="card">
+    <h3>Add Event</h3>
+    <input id="eventTitle" placeholder="Event title">
+    <input id="eventDate" type="date">
+    <button onclick="addEvent()">Add Event</button>
+  </div>
 
-<div class="card">
-  <h3>Add Event</h3>
-  <input id="eventTitle" placeholder="Event title">
-  <input id="eventDate" type="date">
-  <button onclick="addEvent()">Add</button>
-</div>
+  <div class="card">
+    <h3>This Month</h3>
+    <div class="calendar" id="calendar"></div>
+  </div>
+</main>
 
-<div class="card">
-  <h3>This Month</h3>
-  <div class="calendar" id="calendar"></div>
-</div>
+<div class="popup" id="quoteBox"></div>
 
-    <section>
-      <h2>Your Events</h2>
-      <ul id="eventList"></ul>
-    </section>
-  </main>
-
-  <script src="calendar.js"></script>
+<script src="calendar.js"></script>
 </body>
 </html>
