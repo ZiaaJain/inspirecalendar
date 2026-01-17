@@ -1,37 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>FocusDay – Calendar</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Inspire Calendar 🌸</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>📅 FocusDay</h1>
-    <nav>
-      <a href="index.html">Calendar</a>
-      <a href="ai.html">Ask Me 🤖</a>
-    </nav>
-  </header>
+<header>
+  <h1>Inspire Calendar 🌸</h1>
+  <nav>
+    <a href="homepage.html">Calendar</a>
+    <a href="ai.html">Inspire AI</a>
+  </nav>
+</header>
 
-  <main>
-    <h2>Add Event</h2>
+<main>
+  <div class="card">
+    <h2>Hello, <span id="username"></span>!</h2>
 
-    <input type="text" id="eventTitle" placeholder="Event title" />
-    <input type="date" id="eventDate" />
-    <select id="eventType">
-      <option value="school">School</option>
-      <option value="exam">Exam</option>
-      <option value="personal">Personal</option>
-    </select>
+    <!-- Motivation popup -->
+    <div id="quotePopup" class="popup">
+      <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
+      <p id="quoteText"></p>
+    </div>
 
-    <button onclick="addEvent()">Add Event</button>
+    <!-- Calendar navigation -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0;">
+      <button onclick="changeMonth(-1)">← Prev</button>
+      <h3 id="monthLabel"></h3>
+      <button onclick="changeMonth(1)">Next →</button>
+    </div>
 
-    <h2>Your Events</h2>
-    <ul id="eventList"></ul>
-  </main>
+    <!-- Calendar grid -->
+    <div id="calendar" class="calendar"></div>
 
-  <script src="calendar.js"></script>
+    <!-- Add events -->
+    <div style="margin-top:20px;">
+      <input type="text" id="eventTitle" placeholder="Event Name">
+      <input type="date" id="eventDate">
+      <select id="eventCategory">
+        <option value="School">School</option>
+        <option value="Personal">Personal</option>
+        <option value="Exam">Exam</option>
+        <option value="Birthday">Birthday</option>
+        <option value="Other">Other</option>
+      </select>
+      <button onclick="addEvent()">Add Event</button>
+    </div>
+  </div>
+</main>
+
+<script src="calendar.js"></script>
 </body>
 </html>
