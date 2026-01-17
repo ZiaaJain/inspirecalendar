@@ -147,3 +147,44 @@ button:hover {
 @keyframes fadeInPopup {
   to { opacity: 1; }
 }
+/* Calendar container */
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Each row of the calendar */
+.calendar-row {
+  display: flex;
+}
+
+/* Day cell */
+.calendar-day, .calendar-day-name {
+  flex: 1;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 1px;
+}
+
+/* Highlighted day with events */
+.calendar-day.highlight {
+  background-color: #dcecfb;
+}
+
+/* Day names (header) */
+.calendar-day-name {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+/* Empty cells */
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+}
