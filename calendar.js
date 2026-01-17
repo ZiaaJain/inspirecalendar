@@ -56,72 +56,57 @@ function changeMonth(delta){
 function renderCalendar() {
   calendarEl.innerHTML = "";
 
-  // Month label
   document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-  // Create table
-  const table = document.createElement("table");
-  table.className = "calendar-table";
+  // Create grid container
+  const grid = document.createElement("div");
+  grid.className = "calendar-grid";
 
-  // Header row for days
-  const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
+  // Add day headers
   dayNames.forEach(d => {
-    const th = document.createElement("th");
-    th.textContent = d;
-    headerRow.appendChild(th);
+    const dayHeader = document.createElement("div");
+    dayHeader.className = "day-header";
+    dayHeader.textContent = d;
+    grid.appendChild(dayHeader);
   });
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  // Body
-  const tbody = document.createElement("tbody");
 
   const firstDay = new Date(currentYear, currentMonth, 1);
   const startingDay = (firstDay.getDay() + 6) % 7; // Monday=0
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth+1,0).getDate();
 
-  let dayCounter = 1;
-  for(let week=0; week<6; week++){
-    const tr = document.createElement("tr");
-    for(let d=0; d<7; d++){
-      const td = document.createElement("td");
-      td.className = "day-cell";
-
-      if(week === 0 && d < startingDay){
-        td.classList.add("empty");
-      } else if(dayCounter > daysInMonth){
-        td.classList.add("empty");
-      } else {
-        td.innerHTML = `<div class="date-number">${dayCounter}</div>`;
-
-        const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(dayCounter).padStart(2,"0")}`;
-        const todaysEvents = events.filter(e => e.date === dateStr && e.user === user.name);
-
-        todaysEvents.forEach(ev => {
-          const evDiv = document.createElement("div");
-          evDiv.textContent = ev.title;
-          evDiv.className = "event";
-
-          // Event colors
-          if(ev.type==="school") evDiv.style.background="#bcd4e6"; 
-          else if(ev.type==="personal") evDiv.style.background="##e6e6fa";
-          else if(ev.type==="exam") evDiv.style.background="#ccccff";
-          else evDiv.style.background="#d1e2d0";
-
-          td.appendChild(evDiv);
-        });
-
-        dayCounter++;
-      }
-      tr.appendChild(td);
-    }
-    tbody.appendChild(tr);
-    if(dayCounter > daysInMonth) break;
+  for(let i=0; i<startingDay; i++){
+    const emptyCell = document.createElement("div");
+    emptyCell.className = "day-cell empty";
+    grid.appendChild(emptyCell);
   }
 
-  table.appendChild(tbody);
-  calendarEl.appendChild(table);
+  for(let day=1; day<=daysInMonth; day++){
+    const cell = document.createElement("div");
+    cell.className = "day-cell";
+
+    cell.innerHTML = `<div class="date-number">${day}</div>`;
+
+    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const todaysEvents = events.filter(e => e.date === dateStr && e.user === user.name);
+
+    todaysEvents.forEach(ev => {
+      const evDiv = document.createElement("div");
+      evDiv.textContent = ev.title;
+      evDiv.className = "event";
+
+      // Match legend colors
+      if(ev.type==="school") evDiv.style.background="#bcd4e6"; 
+      else if(ev.type==="personal") evDiv.style.background="#e6e6fa";
+      else if(ev.type==="exam") evDiv.style.background="#ccccff";
+      else evDiv.style.background="#d1e2d0";
+
+      cell.appendChild(evDiv);
+    });
+
+    grid.appendChild(cell);
+  }
+
+  calendarEl.appendChild(grid);
 }
 
 renderCalendar();
