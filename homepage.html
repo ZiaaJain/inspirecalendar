@@ -1,25 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inspire Calendar</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
 <header>
   <h1>Inspire Calendar 🌸</h1>
   <nav>Hello, <strong id="username"></strong>!</nav>
 </header>
 
 <main>
-
-  <!-- Motivation popup -->
-  <div class="popup" id="quotePopup">
-    <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
-    <p id="quoteText"></p>
-  </div>
-
   <!-- Add Event Card -->
   <div class="card">
     <h3>Add Event</h3>
@@ -41,23 +25,19 @@
       <h3 id="monthLabel"></h3>
       <button onclick="changeMonth(1)">Next →</button>
     </div>
-
     <div id="calendar" class="calendar"></div>
   </div>
 
   <!-- Legend -->
   <div class="card">
     <h4>Event Type Legend</h4>
-    <div style="display:flex; gap:10px; flex-wrap: wrap;">
-      <div style="background:#FADDE1; padding:5px 10px; border-radius:12px;">School</div>
-      <div style="background:#EADBDD; padding:5px 10px; border-radius:12px;">Personal</div>
-      <div style="background:#D0D5EA; padding:5px 10px; border-radius:12px;">Exam</div>
-      <div style="background:#F0D2DA; padding:5px 10px; border-radius:12px;">Other</div>
+    <div style="display:flex; gap:10px;">
+      <div style="background:var(--school); padding:5px 10px; border-radius:5px;">School</div>
+      <div style="background:var(--personal); padding:5px 10px; border-radius:5px;">Personal</div>
+      <div style="background:var(--exam); padding:5px 10px; border-radius:5px;">Exam</div>
+      <div style="background:var(--other); padding:5px 10px; border-radius:5px;">Other</div>
     </div>
   </div>
-
 </main>
 
 <script src="calendar.js"></script>
-</body>
-</html>
