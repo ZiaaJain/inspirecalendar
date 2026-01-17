@@ -49,10 +49,10 @@ const monthNames = [
 ];
 const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-// Event type colors
+// Event type colors (muted pastels)
 const categoryColors = {
-  "School": "#ffdede",
-  "Personal": "#d4f0ff",
+  "School": "#d6d8ff",
+  "Personal": "#ececf2",
   "Exam": "#fff2cc",
   "Birthday": "#fcd5ff",
   "Other": "#e0e0e0"
@@ -82,13 +82,12 @@ function changeMonth(delta) {
   renderCalendar();
 }
 
-// Render the calendar
+// Render calendar in grid (MTWTFSS)
 function renderCalendar() {
   calendar.innerHTML = "";
-
   document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-  // Header row (Mon-Sun)
+  // Header row
   const headerRow = document.createElement("div");
   headerRow.className = "calendar-row";
   dayNames.forEach(day => {
@@ -101,7 +100,7 @@ function renderCalendar() {
   calendar.appendChild(headerRow);
 
   const firstDay = new Date(currentYear, currentMonth, 1);
-  const startingDay = (firstDay.getDay() + 6) % 7; // Mon=0
+  const startingDay = (firstDay.getDay() + 6) % 7; // Monday = 0
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
   let row = document.createElement("div");
