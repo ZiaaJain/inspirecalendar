@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Inspire AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
   <h1>Inspire AI 🤍</h1>
   <nav>
@@ -16,13 +16,31 @@
 
 <main>
   <div class="card">
-    <p>Hi <span id="aiName"></span>, what’s on your mind?</p>
-    <textarea id="question" placeholder="I’m stressed about exams..."></textarea>
+    <h2>Hello, <span id="aiName"></span>!</h2>
+    <textarea id="question" placeholder="Ask Inspire AI anything..."></textarea>
     <button onclick="askAI()">Ask Inspire AI</button>
-    <div id="answer"></div>
+    <div id="answer" style="margin-top:15px;"></div>
   </div>
 </main>
 
-<script src="ai.js"></script>
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+if(!user) window.location.href = "login.html";
+document.getElementById("aiName").textContent = user.name;
+
+function askAI() {
+  const question = document.getElementById("question").value.toLowerCase();
+  let answer = "You’re doing your best 🌷 Keep going!";
+
+  // Dynamic frontend answers demo
+  if(question.includes("exam")) answer = "Focus in 25-minute bursts ✨";
+  else if(question.includes("stress")) answer = "Take deep breaths 🤍";
+  else if(question.includes("tired")) answer = "Rest is productive 🌙";
+  else if(question.includes("hello") || question.includes("hi")) answer = "Hi! What can I do for you today?";
+  else if(question.includes("study")) answer = "Try breaking study into small chunks and reward yourself 🌸";
+
+  document.getElementById("answer").textContent = answer;
+}
+</script>
 </body>
 </html>
