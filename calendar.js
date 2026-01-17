@@ -104,10 +104,10 @@ function renderCalendar() {
           evDiv.className = "event";
 
           // Event colors
-          if(ev.type==="school") evDiv.style.background="#FADDE1";
-          else if(ev.type==="personal") evDiv.style.background="#EADBDD";
-          else if(ev.type==="exam") evDiv.style.background="#D0D5EA";
-          else evDiv.style.background="#F0D2DA";
+          if(ev.type==="school") evDiv.style.background="#bcd4e6"; 
+          else if(ev.type==="personal") evDiv.style.background="##e6e6fa";
+          else if(ev.type==="exam") evDiv.style.background="#ccccff";
+          else evDiv.style.background="#d1e2d0";
 
           td.appendChild(evDiv);
         });
