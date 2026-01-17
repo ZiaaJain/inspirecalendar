@@ -13,13 +13,8 @@
   <main>
     <div class="card">
       <h2>Sign In / Sign Up</h2>
-
-      <!-- Name -->
       <input id="name" type="text" placeholder="Your Name">
-
-      <!-- Password -->
       <input id="password" type="password" placeholder="Password">
-
       <button onclick="login()">Sign In</button>
     </div>
   </main>
@@ -34,10 +29,10 @@
         return;
       }
 
-      // Store user locally (name + password)
+      // Save user info locally
       localStorage.setItem("user", JSON.stringify({name, password}));
 
-      // Redirect to calendar
+      // Redirect to homepage
       window.location.href = "homepage.html";
     }
   </script>
