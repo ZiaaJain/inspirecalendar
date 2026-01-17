@@ -2,32 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Inspire Calendar - Login</title>
+  <title>Inspire Calendar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Welcome to Inspire Calendar 💫</h1>
-  </header>
 
-  <main>
-    <div class="card">
-      <h2>Sign In / Sign Up</h2>
-      <input id="name" type="text" placeholder="Your Name">
-      <input id="email" type="email" placeholder="Your Email">
-      <button onclick="login()">Sign In</button>
+<header>
+  <h1>Inspire Calendar 🌸</h1>
+  <nav>
+    <a href="login.html">Calendar</a>
+    <a href="ai.html">Inspire AI</a>
+  </nav>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Hello, <span id="username"></span>!</h2>
+    <div id="quoteBox" class="popup"></div>
+    <div id="calendar"></div>
+    <div style="margin-top:20px;">
+      <input type="text" id="eventTitle" placeholder="Event Name">
+      <input type="date" id="eventDate">
+      <button onclick="addEvent()">Add Event</button>
     </div>
-  </main>
+  </div>
+</main>
 
-  <script>
-    function login() {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      if(!name || !email) return alert("Please fill both fields");
-
-      localStorage.setItem("user", JSON.stringify({name, email}));
-      window.location.href = "index.html";
-    }
-  </script>
+<script src="calendar.js"></script>
 </body>
 </html>
