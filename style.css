@@ -9,9 +9,7 @@
   --muted: #777;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -23,31 +21,25 @@ body {
 /* HEADER */
 header {
   background: var(--card);
-  padding: 10px 20px;
+  padding: 15px 20px;
   border-bottom: 1px solid var(--secondary);
 }
 
 header h1 {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
+  font-size: 2rem;
+  font-weight: 700;
   margin: 0;
 }
 
-nav {
-  margin-top: 5px;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--muted);
-  margin-right: 15px;
-  font-weight: 600;
+header nav {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 /* MAIN */
-main {
-  padding: 20px;
-}
+main { padding: 20px; }
 
 /* CARDS */
 .card {
@@ -68,7 +60,7 @@ button {
   font-family: 'Poppins';
 }
 
-input, textarea {
+input, textarea, select {
   width: 100%;
   padding: 10px;
   border-radius: 10px;
@@ -80,22 +72,30 @@ input, textarea {
 /* CALENDAR */
 .calendar {
   display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.calendar-row {
+  display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
 }
 
 .day {
-  background: #fdfdfd;
+  background: #fafafa;
   border-radius: 12px;
-  padding: 10px;
   min-height: 80px;
   font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 5px;
 }
 
-.day.highlight {
-  background: #eef0ff;
-  border: 2px solid var(--primary);
-}
+.day.empty { background: transparent; }
+
+.day.highlight { border: 2px solid var(--primary); }
 
 /* POPUP */
 .popup {
