@@ -200,3 +200,52 @@ input, textarea, select {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day-header {
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 10px;
+  background: #f4f4f4;
+}
+
+.day-cell {
+  background: #fff;
+  border-radius: 14px;
+  min-height: 90px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.day-cell:hover {
+  transform: translateY(-2px);
+}
+
+.day-cell.empty {
+  background: #fdfdfd;
+  box-shadow: none;
+}
+
+.date-number {
+  font-weight: 600;
+}
+
+.event {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
