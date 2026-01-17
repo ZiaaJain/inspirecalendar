@@ -2,34 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>FocusDay – Calendar</title>
+  <title>Inspire Calendar</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header>
-    <h1>📅 FocusDay</h1>
+    <h1>📅 Inspire Calendar</h1>
+    <p class="tagline">Plan your days. Inspire your goals.</p>
     <nav>
       <a href="index.html">Calendar</a>
-      <a href="ai.html">Ask Me 🤖</a>
+      <a href="ai.html">Inspire AI 🤖</a>
     </nav>
   </header>
 
   <main>
-    <h2>Add Event</h2>
+    <section>
+      <h2>Add Event</h2>
+      <input type="text" id="eventTitle" placeholder="Event title" />
+      <input type="date" id="eventDate" />
+      <select id="eventType">
+        <option value="school">School</option>
+        <option value="exam">Exam</option>
+        <option value="personal">Personal</option>
+      </select>
+      <button onclick="addEvent()">Add Event</button>
+    </section>
 
-    <input type="text" id="eventTitle" placeholder="Event title" />
-    <input type="date" id="eventDate" />
-    <select id="eventType">
-      <option value="school">School</option>
-      <option value="exam">Exam</option>
-      <option value="personal">Personal</option>
-    </select>
-
-    <button onclick="addEvent()">Add Event</button>
-
-    <h2>Your Events</h2>
-    <ul id="eventList"></ul>
+    <section>
+      <h2>Your Events</h2>
+      <ul id="eventList"></ul>
+    </section>
   </main>
 
   <script src="calendar.js"></script>
