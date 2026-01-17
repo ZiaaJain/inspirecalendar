@@ -1,37 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Inspire Calendar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>Inspire Calendar ✨</h1>
+  <h1>Inspire Calendar 🌸</h1>
   <nav>
-    <a href="homepage.html">Calendar</a>
+    <span>Hello, <strong id="username"></strong>!</span>
   </nav>
 </header>
 
 <main>
-  <div class="card">
-    <h2>Hello, <span id="username"></span> 🌱</h2>
+  <!-- Motivation popup -->
+  <div class="popup" id="quotePopup">
+    <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
+    <p id="quoteText"></p>
   </div>
 
+  <!-- Add event card -->
   <div class="card">
     <h3>Add Event</h3>
     <input id="eventTitle" placeholder="Event title">
     <input id="eventDate" type="date">
+    <select id="eventType">
+      <option value="school">School</option>
+      <option value="personal">Personal</option>
+      <option value="exam">Exam</option>
+      <option value="other">Other</option>
+    </select>
     <button onclick="addEvent()">Add Event</button>
   </div>
 
+  <!-- Calendar -->
   <div class="card">
-    <h3>This Month</h3>
-    <div class="calendar" id="calendar"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <button onclick="changeMonth(-1)">← Prev</button>
+      <h3 id="monthLabel"></h3>
+      <button onclick="changeMonth(1)">Next →</button>
+    </div>
+    <div id="calendar" class="calendar"></div>
   </div>
-</main>
 
-<div class="popup" id="quoteBox"></div>
+  <!-- Legend -->
+  <div class="card">
+    <h4>Event Type Legend</h4>
+    <div style="display:flex; gap:10px;">
+      <div style="background:#ffd6d6; padding:5px 10px; border-radius:5px;">School</div>
+      <div style="background:#d6ffd6; padding:5px 10px; border-radius:5px;">Personal</div>
+      <div style="background:#d6d6ff; padding:5px 10px; border-radius:5px;">Exam</div>
+      <div style="background:#fff0b3; padding:5px 10px; border-radius:5px;">Other</div>
+    </div>
+  </div>
+
+</main>
 
 <script src="calendar.js"></script>
 </body>
