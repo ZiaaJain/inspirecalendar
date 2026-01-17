@@ -22,7 +22,7 @@
   <script>
     function login() {
       const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
       if(!name || !email) return alert("Please fill both fields");
 
       localStorage.setItem("user", JSON.stringify({name, email}));
