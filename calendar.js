@@ -56,48 +56,38 @@ function changeMonth(delta){
 function renderCalendar() {
   calendarEl.innerHTML = "";
 
-  // Add day headers
-  dayNames.forEach(d => {
-    const header = document.createElement("div");
-    header.className = "day";
-    header.style.fontWeight = "700";
-    header.style.textAlign = "center";
-    header.textContent = d;
-    calendarEl.appendChild(header);
-  });
+  // Month label
+  document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
+  // Create empty array for grid
   const firstDay = new Date(currentYear, currentMonth, 1);
-  const startingDay = (firstDay.getDay() + 6) % 7; // Monday = 0
-  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+  const startingDay = (firstDay.getDay() + 6) % 7; // Monday=0
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-  // Fill empty slots before first day
-  for(let i=0;i<startingDay;i++){
-    const emptyCell = document.createElement("div");
-    emptyCell.className = "day empty";
-    calendarEl.appendChild(emptyCell);
-  }
+  let totalCells = startingDay + daysInMonth;
+  let dayCounter = 1;
 
-  // Fill days
-  for(let day=1; day<=daysInMonth; day++){
-    const dayCell = document.createElement("div");
-    dayCell.className = "day";
+  for(let i=0;i<totalCells;i++){
+    const dayDiv = document.createElement("div");
+    dayDiv.className = "day";
 
-    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-    const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
+    if(i < startingDay){
+      dayDiv.classList.add("empty");
+    } else {
+      const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(dayCounter).padStart(2,"0")}`;
+      dayDiv.innerHTML = `<div class="date-number">${dayCounter}</div>`;
 
-    const dateDiv = document.createElement("div");
-    dateDiv.className = "date-number";
-    dateDiv.textContent = day;
-    dayCell.appendChild(dateDiv);
+      const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
+      todaysEvents.forEach(ev=>{
+        const evDiv = document.createElement("div");
+        evDiv.className = `event ${ev.type}`;
+        evDiv.textContent = ev.title;
+        dayDiv.appendChild(evDiv);
+      });
 
-    todaysEvents.forEach(ev=>{
-      const evDiv = document.createElement("div");
-      evDiv.className = "event " + ev.type; // use class for color
-      evDiv.textContent = ev.title;
-      dayCell.appendChild(evDiv);
-    });
-
-    calendarEl.appendChild(dayCell);
+      dayCounter++;
+    }
+    calendarEl.appendChild(dayDiv);
   }
 }
 
