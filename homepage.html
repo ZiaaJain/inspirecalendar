@@ -18,8 +18,23 @@
 <main>
   <div class="card">
     <h2>Hello, <span id="username"></span>!</h2>
-    <div id="quoteBox" class="popup"></div>
+
+    <!-- Motivation popup -->
+    <div id="quotePopup" class="popup">
+      <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
+      <p id="quoteText"></p>
+    </div>
+
+    <!-- Calendar navigation -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0;">
+      <button onclick="changeMonth(-1)">← Prev</button>
+      <h3 id="monthLabel"></h3>
+      <button onclick="changeMonth(1)">Next →</button>
+    </div>
+
     <div id="calendar"></div>
+
+    <!-- Add events -->
     <div style="margin-top:20px;">
       <input type="text" id="eventTitle" placeholder="Event Name">
       <input type="date" id="eventDate">
