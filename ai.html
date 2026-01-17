@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inspire AI – Inspire Calendar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🤖 Inspire AI</h1>
+    <p class="tagline">Your personal study & motivation guide</p>
+    <nav>
+      <a href="index.html">Calendar</a>
+      <a href="ai.html">Inspire AI</a>
+    </nav>
+  </header>
+
+  <main>
+    <textarea
+      id="question"
+      placeholder="Ask for study tips, motivation, stress help..."
+    ></textarea>
+
+    <button onclick="askAI()">Ask Inspire AI</button>
+
+    <div id="answer"></div>
+  </main>
+
+  <script src="ai.js"></script>
+</body>
+</html>
