@@ -1,104 +1,63 @@
-const calendarEl = document.getElementById("calendar");
-const usernameEl = document.getElementById("username");
-const quotePopup = document.getElementById("quotePopup");
-const quoteText = document.getElementById("quoteText");
-const closeQuote = document.getElementById("closeQuote");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inspire Calendar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const user = JSON.parse(localStorage.getItem("user"));
-if(!user) window.location.href = "index.html";
-usernameEl.textContent = user.name;
+<header>
+  <h1>Inspire Calendar 🌸</h1>
+  <nav>Hello, <strong id="username"></strong>!</nav>
+</header>
 
-let events = JSON.parse(localStorage.getItem("events")) || [];
+<main>
 
-// Motivational quotes
-const quotes = [
-  "Small steps move you forward 🌷",
-  "You're doing better than you think 🤍",
-  "Progress over perfection ✨",
-  "Rest is productive too 🌙",
-  "Every day is a fresh start 🌸"
-];
-quoteText.textContent = quotes[Math.floor(Math.random()*quotes.length)];
-closeQuote.onclick = () => quotePopup.style.display = "none";
+  <!-- Motivation popup -->
+  <div class="popup" id="quotePopup">
+    <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
+    <p id="quoteText"></p>
+  </div>
 
-// Calendar variables
-let today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
+  <!-- Add Event Card -->
+  <div class="card">
+    <h3>Add Event</h3>
+    <input id="eventTitle" placeholder="Event title">
+    <input id="eventDate" type="date">
+    <select id="eventType">
+      <option value="school">School</option>
+      <option value="personal">Personal</option>
+      <option value="exam">Exam</option>
+      <option value="other">Other</option>
+    </select>
+    <button onclick="addEvent()">Add Event</button>
+  </div>
 
-const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const dayNames = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  <!-- Calendar -->
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <button onclick="changeMonth(-1)">← Prev</button>
+      <h3 id="monthLabel"></h3>
+      <button onclick="changeMonth(1)">Next →</button>
+    </div>
 
-// Add event
-function addEvent() {
-  const title = document.getElementById("eventTitle").value.trim();
-  const date = document.getElementById("eventDate").value;
-  const type = document.getElementById("eventType").value;
-  if(!title || !date) return alert("Fill all fields");
+    <div id="calendar" class="calendar"></div>
+  </div>
 
-  events.push({title, date, type, user:user.name});
-  localStorage.setItem("events", JSON.stringify(events));
-  renderCalendar();
+  <!-- Legend -->
+  <div class="card">
+    <h4>Event Type Legend</h4>
+    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+      <div style="background:#FADDE1; padding:5px 10px; border-radius:12px;">School</div>
+      <div style="background:#EADBDD; padding:5px 10px; border-radius:12px;">Personal</div>
+      <div style="background:#D0D5EA; padding:5px 10px; border-radius:12px;">Exam</div>
+      <div style="background:#F0D2DA; padding:5px 10px; border-radius:12px;">Other</div>
+    </div>
+  </div>
 
-  document.getElementById("eventTitle").value = "";
-  document.getElementById("eventDate").value = "";
-}
+</main>
 
-// Month navigation
-function changeMonth(delta){
-  currentMonth += delta;
-  if(currentMonth<0){ currentMonth=11; currentYear--; }
-  if(currentMonth>11){ currentMonth=0; currentYear++; }
-  renderCalendar();
-}
-
-// Render calendar
-function renderCalendar() {
-  calendarEl.innerHTML = "";
-
-  // Add day headers
-  dayNames.forEach(d => {
-    const header = document.createElement("div");
-    header.className = "day";
-    header.style.fontWeight = "700";
-    header.style.textAlign = "center";
-    header.textContent = d;
-    calendarEl.appendChild(header);
-  });
-
-  const firstDay = new Date(currentYear, currentMonth, 1);
-  const startingDay = (firstDay.getDay() + 6) % 7; // Monday = 0
-  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
-
-  // Fill empty slots before first day
-  for(let i=0;i<startingDay;i++){
-    const emptyCell = document.createElement("div");
-    emptyCell.className = "day empty";
-    calendarEl.appendChild(emptyCell);
-  }
-
-  // Fill days
-  for(let day=1; day<=daysInMonth; day++){
-    const dayCell = document.createElement("div");
-    dayCell.className = "day";
-
-    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-    const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
-
-    const dateDiv = document.createElement("div");
-    dateDiv.className = "date-number";
-    dateDiv.textContent = day;
-    dayCell.appendChild(dateDiv);
-
-    todaysEvents.forEach(ev=>{
-      const evDiv = document.createElement("div");
-      evDiv.className = "event " + ev.type; // use class for color
-      evDiv.textContent = ev.title;
-      dayCell.appendChild(evDiv);
-    });
-
-    calendarEl.appendChild(dayCell);
-  }
-}
-
-renderCalendar();
+<script src="calendar.js"></script>
+</body>
+</html>
