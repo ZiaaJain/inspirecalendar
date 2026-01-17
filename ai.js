@@ -1,52 +1,19 @@
-const API_KEY = "https://api.openai.com/v1/chat/completions";
+const answer = document.getElementById("answer");
+const aiName = document.getElementById("aiName");
 
-async function askAI() {
-  const question = document.getElementById("question").value;
-  const answerDiv = document.getElementById("answer");
+const user = JSON.parse(localStorage.getItem("user"));
+if (user) aiName.textContent = user.name;
 
-  if (!question) {
-    alert("Ask something first!");
-    return;
-  }
+function askAI() {
+  const q = question.value.toLowerCase();
 
-  answerDiv.innerHTML = "Inspire AI is thinking… ✨";
-
-  const events = JSON.parse(localStorage.getItem("events")) || [];
-  const eventContext = events
-    .map(e => `${e.title} on ${e.date}`)
-    .join(", ");
-
-  try {
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are Inspire AI, a friendly and motivating assistant inside Inspire Calendar. You help students stay organized, calm, and confident. Keep answers supportive, practical, and encouraging."
-            },
-            {
-              role: "user",
-              content: `My upcoming events: ${eventContext}. My question: ${question}`
-            }
-          ]
-        })
-      }
-    );
-
-    const data = await response.json();
-    answerDiv.innerHTML = data.choices[0].message.content;
-
-  } catch (error) {
-    answerDiv.innerHTML = "Something went wrong 😢";
-    console.error(error);
+  if (q.includes("stress")) {
+    answer.textContent = "Take a deep breath 🤍 Try breaking tasks into tiny steps.";
+  } else if (q.includes("exam")) {
+    answer.textContent = "Use 25-minute focus sessions with short breaks ✨ You’ve got this.";
+  } else if (q.includes("tired")) {
+    answer.textContent = "Rest matters 🌙 Even small pauses help your brain reset.";
+  } else {
+    answer.textContent = "You’re doing your best 🌷 Keep going gently.";
   }
 }
