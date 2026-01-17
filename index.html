@@ -14,7 +14,7 @@
     <div class="card">
       <h2>Sign In / Sign Up</h2>
       <input id="name" type="text" placeholder="Your Name">
-      <input id="email" type="email" placeholder="Your Email">
+      <input id="password" type="text" placeholder="Your Password">
       <button onclick="login()">Sign In</button>
     </div>
   </main>
@@ -22,7 +22,7 @@
   <script>
     function login() {
       const name = document.getElementById("name").value.trim();
-      const password = document.getElementById("password").value.trim();
+      const email = document.getElementById("email").value.trim();
       if(!name || !email) return alert("Please fill both fields");
 
       localStorage.setItem("user", JSON.stringify({name, email}));
