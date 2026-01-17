@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Inspire Calendar</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <h1>Inspire Calendar ✨</h1>
+  <h1>Inspire Calendar 🌸</h1>
   <nav>
     <a href="index.html">Calendar</a>
     <a href="ai.html">Inspire AI</a>
@@ -16,23 +17,16 @@
 
 <main>
   <div class="card">
-    <h2>Hello, <span id="username"></span> 🌱</h2>
-  </div>
-
-  <div class="card">
-    <h3>Add Event</h3>
-    <input id="eventTitle" placeholder="Event title">
-    <input id="eventDate" type="date">
-    <button onclick="addEvent()">Add Event</button>
-  </div>
-
-  <div class="card">
-    <h3>This Month</h3>
-    <div class="calendar" id="calendar"></div>
+    <h2>Hello, <span id="username"></span>!</h2>
+    <div id="quoteBox" class="popup"></div>
+    <div id="calendar"></div>
+    <div style="margin-top:20px;">
+      <input type="text" id="eventTitle" placeholder="Event Name">
+      <input type="date" id="eventDate">
+      <button onclick="addEvent()">Add Event</button>
+    </div>
   </div>
 </main>
-
-<div class="popup" id="quoteBox"></div>
 
 <script src="calendar.js"></script>
 </body>
