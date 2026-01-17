@@ -21,21 +21,26 @@ body {
 /* HEADER */
 header {
   background: var(--card);
-  padding: 15px 20px;
+  padding: 20px;
   border-bottom: 1px solid var(--secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
 }
 
 header h1 {
   font-family: 'Poppins', sans-serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
 }
 
 header nav {
-  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  color: var(--text);
 }
 
 /* MAIN */
@@ -69,33 +74,40 @@ input, textarea, select {
   font-family: 'Quicksand';
 }
 
-/* CALENDAR */
-.calendar {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-
-.calendar-row {
+/* CALENDAR GRID */
+.calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
 }
 
-.day {
+.day-header {
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 0;
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+
+.day-cell {
   background: #fafafa;
   border-radius: 12px;
   min-height: 80px;
-  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   gap: 3px;
   padding: 5px;
 }
 
-.day.empty { background: transparent; }
+.day-cell.empty { background: transparent; }
 
-.day.highlight { border: 2px solid var(--primary); }
+.date-number { font-weight: bold; }
+
+.event {
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
 
 /* POPUP */
 .popup {
@@ -108,43 +120,4 @@ input, textarea, select {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   max-width: 250px;
   font-family: 'Poppins';
-}
-/* Calendar table */
-.calendar-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.calendar-table th, .calendar-table td {
-  border: 1px solid #e0e0e0;
-  padding: 8px;
-  vertical-align: top;
-  min-height: 80px;
-}
-
-.calendar-table th {
-  background: #f4f4f4;
-  font-weight: 600;
-  text-align: center;
-}
-
-.day-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.day-cell .date-number {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.day-cell.empty {
-  background: #fafafa;
-}
-
-.event {
-  font-size: 0.75rem;
-  padding: 2px 4px;
-  border-radius: 4px;
 }
