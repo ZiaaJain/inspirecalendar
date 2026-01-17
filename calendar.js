@@ -1,21 +1,40 @@
 const calendar = document.getElementById("calendar");
 const username = document.getElementById("username");
 const quoteBox = document.getElementById("quoteBox");
+const eventTitle = document.getElementById("eventTitle");
+const eventDate = document.getElementById("eventDate");
 
 const user = JSON.parse(localStorage.getItem("user"));
-if (user) username.textContent = user.name;
+if(!user) {
+  window.location.href = "login.html";
+} else {
+  username.textContent = user.name;
+}
 
 let events = JSON.parse(localStorage.getItem("events")) || [];
 
 function addEvent() {
-  const title = eventTitle.value;
+  const title = eventTitle.value.trim();
   const date = eventDate.value;
-  if (!title || !date) return alert("Fill everything");
+  if(!title || !date) return alert("Fill both fields");
 
-  events.push({ title, date, userEmail: user.email });
+  events.push({title, date, email: user.email});
   localStorage.setItem("events", JSON.stringify(events));
+
   renderCalendar();
+  eventTitle.value = "";
+  eventDate.value = "";
 }
+
+// Inspirational quotes
+const quotes = [
+  "Small steps still move you forward 🌷",
+  "You’re doing better than you think 🤍",
+  "Progress over perfection ✨",
+  "Rest is productive too 🌙",
+  "Every day is a fresh start 🌸"
+];
+quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
 function renderCalendar() {
   calendar.innerHTML = "";
@@ -36,16 +55,15 @@ function renderCalendar() {
 
   const daysInMonth = new Date(year, month+1, 0).getDate();
 
-  for (let i = 1; i <= daysInMonth; i++) {
+  for(let i=1; i<=daysInMonth; i++) {
     const dayBox = document.createElement("div");
     dayBox.className = "day";
     dayBox.innerHTML = `<strong>${i}</strong>`;
 
     const dateStr = `${year}-${String(month+1).padStart(2,"0")}-${String(i).padStart(2,"0")}`;
 
-    // Filter events for logged-in user
-    const todaysEvents = events.filter(e => e.date === dateStr && e.userEmail === user.email);
-    if (todaysEvents.length) {
+    const todaysEvents = events.filter(e => e.date === dateStr && e.email === user.email);
+    if(todaysEvents.length > 0) {
       dayBox.classList.add("highlight");
       todaysEvents.forEach(ev => {
         const evDiv = document.createElement("div");
@@ -59,14 +77,5 @@ function renderCalendar() {
     calendar.appendChild(dayBox);
   }
 }
-
-// Show random inspirational quote
-const quotes = [
-  "Small steps still move you forward 🌷",
-  "You’re doing better than you think 🤍",
-  "Progress over perfection ✨",
-  "Rest is productive too 🌙"
-];
-quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
 
 renderCalendar();
