@@ -1,54 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Inspire Calendar 🌸</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>FocusDay – Calendar</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <h1>Inspire Calendar 🌸</h1>
-  <nav>
-    <a href="homepage.html">Calendar</a>
-  </nav>
-</header>
 
-<main>
-  <div class="card">
-    <h2>Hello, <span id="username"></span>!</h2>
+  <header>
+    <h1>📅 FocusDay</h1>
+    <nav>
+      <a href="index.html">Calendar</a>
+      <a href="ai.html">Ask Me 🤖</a>
+    </nav>
+  </header>
 
-    <!-- Motivation Popup -->
-    <div id="quotePopup" class="popup">
-      <span id="closeQuote" style="float:right; cursor:pointer;">✖</span>
-      <p id="quoteText"></p>
-    </div>
+  <main>
+    <h2>Add Event</h2>
 
-    <!-- Calendar Navigation -->
-    <div class="calendar-nav">
-      <button onclick="changeMonth(-1)">← Prev</button>
-      <h3 id="monthLabel"></h3>
-      <button onclick="changeMonth(1)">Next →</button>
-    </div>
+    <input type="text" id="eventTitle" placeholder="Event title" />
+    <input type="date" id="eventDate" />
+    <select id="eventType">
+      <option value="school">School</option>
+      <option value="exam">Exam</option>
+      <option value="personal">Personal</option>
+    </select>
 
-    <!-- Calendar Grid -->
-    <div id="calendar" class="calendar-grid"></div>
+    <button onclick="addEvent()">Add Event</button>
 
-    <!-- Add Events -->
-    <div class="add-event">
-      <input type="text" id="eventTitle" placeholder="Event Name">
-      <input type="date" id="eventDate">
-      <select id="eventCategory">
-        <option value="school">School</option>
-        <option value="personal">Personal</option>
-        <option value="exam">Exam</option>
-        <option value="birthday">Birthday</option>
-        <option value="other">Other</option>
-      </select>
-      <button onclick="addEvent()">Add Event</button>
-    </div>
-  </div>
-</main>
+    <h2>Your Events</h2>
+    <ul id="eventList"></ul>
+  </main>
 
-<script src="calendar.js"></script>
+  <script src="calendar.js"></script>
 </body>
 </html>
