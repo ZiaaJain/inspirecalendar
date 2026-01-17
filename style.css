@@ -1,62 +1,189 @@
+
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --primary: #d6d8ff;
+  --accent: #ececf2;
+  --text: #333;
+  --muted: #777;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6fa;
+  margin: 0;
+  background: var(--bg);
+  font-family: 'Quicksand', sans-serif;
+  color: var(--text);
+}
+
+/* HEADER */
+header {
+  background: var(--card);
+  padding: 8px 20px;
+  border-bottom: 1px solid var(--accent);
+}
+
+header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
   margin: 0;
 }
 
-header {
-  background: #4f46e5;
-  color: white;
-  padding: 15px;
-}
-
 nav a {
-  color: white;
-  margin-right: 15px;
   text-decoration: none;
+  color: var(--muted);
+  margin-right: 15px;
+  font-weight: 600;
 }
 
+/* MAIN */
 main {
   padding: 20px;
 }
 
-input, select, textarea {
-  display: block;
-  margin: 10px 0;
-  padding: 8px;
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* INPUTS */
+input, textarea {
   width: 100%;
-  max-width: 400px;
-}
-
-button {
-  padding: 10px 15px;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-ul li {
-  background: white;
   padding: 10px;
-  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid var(--accent);
+  margin-bottom: 10px;
+  font-family: 'Quicksand';
+}
+
+/* BUTTON */
+button {
+  background: var(--primary);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
   cursor: pointer;
+  font-family: 'Poppins';
 }
 
-.exam {
-  border-left: 5px solid red;
+/* CALENDAR */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
 }
 
-.school {
-  border-left: 5px solid blue;
+.day {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 10px;
+  min-height: 70px;
+  font-size: 0.8rem;
 }
 
-.personal {
-  border-left: 5px solid green;
+.day.highlight {
+  background: #eef0ff;
+  border: 2px solid var(--primary);
 }
 
-#answer {
-  margin-top: 20px;
-  background: white;
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card);
   padding: 15px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  max-width: 240px;
+  font-family: 'Poppins';
+}
+/* Fade-in cards */
+.card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover */
+button:hover {
+  background: #bfc2ff;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+/* Calendar event pop-in */
+.day.highlight {
+  position: relative;
+  animation: popIn 0.3s forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+
+/* Quote popup fade */
+.popup {
+  opacity: 0;
+  animation: fadeInPopup 1s forwards;
+}
+
+@keyframes fadeInPopup {
+  to { opacity: 1; }
+}
+/* Calendar container */
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Each row of the calendar */
+.calendar-row {
+  display: flex;
+}
+
+/* Day cell */
+.calendar-day, .calendar-day-name {
+  flex: 1;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 1px;
+}
+
+/* Highlighted day with events */
+.calendar-day.highlight {
+  background-color: #dcecfb;
+}
+
+/* Day names (header) */
+.calendar-day-name {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+/* Empty cells */
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
 }
