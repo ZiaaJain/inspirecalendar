@@ -1,80 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Quicksand:wght@400;600&display=swap');
-
-:root {
-  --bg: #f6f7f9;
-  --card: #ffffff;
-  --primary: #c7c9ff;
-  --secondary: #e6e7eb;
-  --text: #333;
-  --muted: #777;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  font-family: 'Quicksand', sans-serif;
-  color: var(--text);
-}
-
-/* HEADER */
-header {
-  background: var(--card);
-  padding: 20px;
-  border-bottom: 1px solid var(--secondary);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-header h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-header nav {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--text);
-}
-
-/* MAIN */
-main { padding: 20px; }
-
-/* CARDS */
-.card {
-  background: var(--card);
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-}
-
-/* BUTTONS */
-button {
-  background: var(--primary);
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: 'Poppins';
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--secondary);
-  margin-bottom: 10px;
-  font-family: 'Quicksand';
-}
-
-/* CALENDAR GRID */
+/* Calendar grid */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -82,7 +6,7 @@ input, textarea, select {
 }
 
 .day-header {
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   padding: 8px 0;
   background: #f4f4f4;
@@ -90,34 +14,38 @@ input, textarea, select {
 }
 
 .day-cell {
-  background: #fafafa;
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 14px;
   min-height: 80px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: 5px;
+  gap: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
 }
 
-.day-cell.empty { background: transparent; }
+.day-cell:hover {
+  transform: translateY(-2px);
+}
 
-.date-number { font-weight: bold; }
+.day-cell.empty {
+  background: transparent;
+  box-shadow: none;
+}
+
+.date-number {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
 
 .event {
-  font-size: 0.75rem;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-/* POPUP */
-.popup {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--card);
-  padding: 15px 20px;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  max-width: 250px;
-  font-family: 'Poppins';
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 8px;
+  color: #333;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
