@@ -1,41 +1,39 @@
-const eventList = document.getElementById("eventList");
+const calendarEl = document.getElementById("calendar");
+const usernameEl = document.getElementById("username");
+
+const user = JSON.parse(localStorage.getItem("user"));
+if (user) usernameEl.textContent = user.name;
+
 let events = JSON.parse(localStorage.getItem("events")) || [];
 
 function addEvent() {
-  const title = document.getElementById("eventTitle").value;
-  const date = document.getElementById("eventDate").value;
-  const type = document.getElementById("eventType").value;
+  const title = eventTitle.value;
+  const date = eventDate.value;
+  if (!title || !date) return alert("Fill all fields");
 
-  if (!title || !date) {
-    alert("Please enter a title and date.");
-    return;
-  }
-
-  events.push({ title, date, type });
+  events.push({ title, date });
   localStorage.setItem("events", JSON.stringify(events));
-  renderEvents();
-
-  document.getElementById("eventTitle").value = "";
+  renderCalendar();
 }
 
-function renderEvents() {
-  eventList.innerHTML = "";
+function renderCalendar() {
+  calendarEl.innerHTML = "";
+  const today = new Date();
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
 
-  events.forEach((event, index) => {
-    const li = document.createElement("li");
-    li.className = event.type;
-    li.textContent = `${event.date} — ${event.title}`;
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dayBox = document.createElement("div");
+    dayBox.className = "day";
+    dayBox.innerHTML = `<strong>${i}</strong>`;
 
-    li.onclick = () => {
-      if (confirm("Delete this event?")) {
-        events.splice(index, 1);
-        localStorage.setItem("events", JSON.stringify(events));
-        renderEvents();
-      }
-    };
+    const dateStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(i).padStart(2,"0")}`;
 
-    eventList.appendChild(li);
-  });
+    if (events.some(e => e.date === dateStr)) {
+      dayBox.classList.add("highlight");
+    }
+
+    calendarEl.appendChild(dayBox);
+  }
 }
 
-renderEvents();
+renderCalendar();
