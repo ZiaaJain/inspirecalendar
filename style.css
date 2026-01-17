@@ -1,1 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Quicksand:wght@400;600&display=swap');
 
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --primary: #c7c9ff;
+  --secondary: #e6e7eb;
+  --text: #333;
+  --muted: #777;
+
+  /* Event colors */
+  --school: #FADDE1;
+  --personal: #EADBDD;
+  --exam: #D0D5EA;
+  --other: #F0D2DA;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: 'Quicksand', sans-serif;
+  color: var(--text);
+}
+
+/* HEADER */
+header {
+  background: var(--card);
+  padding: 20px;
+  border-bottom: 1px solid var(--secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+header nav {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+/* MAIN */
+main {
+  padding: 20px;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+/* BUTTONS */
+button {
+  background: var(--primary);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: 'Poppins';
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #bfc2ff;
+}
+
+/* INPUTS */
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid var(--secondary);
+  margin-bottom: 12px;
+  font-family: 'Quicksand';
+  outline: none;
+  transition: border 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border: 1.5px solid var(--primary);
+}
+
+/* CALENDAR GRID */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+
+.day {
+  background: #fff;
+  border-radius: 18px;
+  min-height: 100px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.day:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.day .date-number {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
+
+.day.empty {
+  background: transparent;
+}
+
+/* EVENTS */
+.event {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 12px;
+  color: #333;
+  line-height: 1.2;
+  word-break: break-word;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Event colors */
+.event.school { background: var(--school); }
+.event.personal { background: var(--personal); }
+.event.exam { background: var(--exam); }
+.event.other { background: var(--other); }
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card);
+  padding: 15px 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  max-width: 250px;
+  font-family: 'Poppins';
+}
