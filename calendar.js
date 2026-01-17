@@ -13,7 +13,7 @@ let user = JSON.parse(localStorage.getItem("user"));
 if(!user) window.location.href = "index.html";
 username.textContent = user.name;
 
-// Get events from localStorage (filter by user name)
+// Get events from localStorage
 let events = JSON.parse(localStorage.getItem("events")) || [];
 
 // Motivation quotes
@@ -64,18 +64,20 @@ function changeMonth(delta){
   renderCalendar();
 }
 
-// Render Calendar in grid
+// Render Calendar
 function renderCalendar(){
-  calendar.innerHTML="";
+  calendar.innerHTML = "";
+
   document.getElementById("monthLabel").textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
   // Day headers
   const headerRow = document.createElement("div");
-  headerRow.className = "calendar-row header";
+  headerRow.className = "calendar-row";
   dayNames.forEach(day=>{
     const d = document.createElement("div");
-    d.className="calendar-day-name";
-    d.textContent=day;
+    d.className="day"; // match your CSS
+    d.textContent = day;
+    d.style.fontWeight = "bold";
     headerRow.appendChild(d);
   });
   calendar.appendChild(headerRow);
@@ -85,48 +87,48 @@ function renderCalendar(){
   const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
 
   let row = document.createElement("div");
-  row.className="calendar-row";
+  row.className = "calendar-row";
 
-  // Blank squares
+  // Blank cells
   for(let i=0;i<startingDay;i++){
     const empty = document.createElement("div");
-    empty.className="calendar-day empty";
+    empty.className = "day empty";
     row.appendChild(empty);
   }
 
-  // Fill days
-  for(let day=1;day<=daysInMonth;day++){
+  // Days
+  for(let day=1; day<=daysInMonth; day++){
     if(row.childNodes.length===7){
       calendar.appendChild(row);
-      row=document.createElement("div");
-      row.className="calendar-row";
+      row = document.createElement("div");
+      row.className = "calendar-row";
     }
 
     const dayCell = document.createElement("div");
-    dayCell.className="calendar-day";
-    dayCell.innerHTML = `<strong>${day}</strong>`;
+    dayCell.className = "day";
 
     const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
-    const todaysEvents = events.filter(e=>e.date===dateStr && e.user===user.name);
+    const todaysEvents = events.filter(e => e.date===dateStr && e.user===user.name);
 
     if(todaysEvents.length>0){
       dayCell.classList.add("highlight");
       todaysEvents.forEach(ev=>{
         const evDiv = document.createElement("div");
-        evDiv.style.fontSize="0.7rem";
-        evDiv.style.marginTop="3px";
-        evDiv.textContent = `${ev.title} (${ev.category})`; // Show type
+        evDiv.style.fontSize = "0.75rem";
+        evDiv.style.marginTop = "3px";
+        evDiv.textContent = `${ev.title} (${ev.category})`;
         dayCell.appendChild(evDiv);
       });
     }
 
+    dayCell.innerHTML = `<strong>${day}</strong>` + dayCell.innerHTML;
     row.appendChild(dayCell);
   }
 
   // Fill end blanks
   while(row.childNodes.length<7){
     const empty = document.createElement("div");
-    empty.className="calendar-day empty";
+    empty.className = "day empty";
     row.appendChild(empty);
   }
 
