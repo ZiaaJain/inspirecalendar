@@ -24,22 +24,30 @@
 </main>
 
 <script>
-const user = JSON.parse(localStorage.getItem("user"));
-if(!user) window.location.href = "login.html";
-document.getElementById("aiName").textContent = user.name;
+const user=JSON.parse(localStorage.getItem("user"));
+if(!user) window.location.href="index.html";
+document.getElementById("aiName").textContent=user.name;
 
-function askAI() {
-  const question = document.getElementById("question").value.toLowerCase();
-  let answer = "You’re doing your best 🌷 Keep going!";
+async function askAI(){
+  const question=document.getElementById("question").value.trim();
+  if(!question) return;
 
-  // Dynamic frontend answers demo
-  if(question.includes("exam")) answer = "Focus in 25-minute bursts ✨";
-  else if(question.includes("stress")) answer = "Take deep breaths 🤍";
-  else if(question.includes("tired")) answer = "Rest is productive 🌙";
-  else if(question.includes("hello") || question.includes("hi")) answer = "Hi! What can I do for you today?";
-  else if(question.includes("study")) answer = "Try breaking study into small chunks and reward yourself 🌸";
+  const answerDiv=document.getElementById("answer");
+  answerDiv.textContent="Thinking... 🤍";
 
-  document.getElementById("answer").textContent = answer;
+  try{
+    // Replace with your backend endpoint that calls OpenAI
+    const res=await fetch("https://YOUR_BACKEND_URL/api/ask",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({prompt:question})
+    });
+    const data=await res.json();
+    answerDiv.textContent=data.answer;
+  }catch(err){
+    console.error(err);
+    answerDiv.textContent="Error! Try again later.";
+  }
 }
 </script>
 </body>
